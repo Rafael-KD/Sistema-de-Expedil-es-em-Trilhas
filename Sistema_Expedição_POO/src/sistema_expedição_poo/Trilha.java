@@ -62,7 +62,7 @@ public class Trilha {
     }
 
     public void setNomeTrilha(String nomeTrilha) {
-        if (nomeTrilha.isBlank()) {
+        if (!nomeTrilha.isBlank()) {
             this.nomeTrilha = nomeTrilha;
         }
         else {
@@ -90,6 +90,11 @@ public class Trilha {
 
     public void setSituacao(boolean situacao) {
         this.situacao = situacao;
+    }
+
+    @Override
+    public String toString() {
+        return nomeTrilha;
     }
     
     

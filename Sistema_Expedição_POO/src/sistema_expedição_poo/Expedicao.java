@@ -1,22 +1,32 @@
 package sistema_expedição_poo;
 
-public class Expedição {
+public class Expedicao {
     private int codExpedicao, qtdeParticipante;
     private String dataExpedição;
     private String nomeGuia;
     private boolean situacao;
+    private Trilha trilha;
         
-    Trilha trilha = new Trilha();
 
-    public Expedição() {
+    public Expedicao() {
     }
 
-    public Expedição(int codExpedicao, int qtdeParticipante, String dateExpedição, String nomeGuia, boolean situacao, Trilha nomeTrilha) {
+    public Expedicao(int codExpedicao, int qtdeParticipante, String dataExpedição, String nomeGuia, Trilha trilha) {
+        this.codExpedicao = codExpedicao;
+        this.qtdeParticipante = qtdeParticipante;
+        this.dataExpedição = dataExpedição;
+        this.nomeGuia = nomeGuia;  
+        this.trilha = trilha;
+    }
+    
+    
+    public Expedicao(int codExpedicao, int qtdeParticipante, String dateExpedição, String nomeGuia, boolean situacao, Trilha nomeTrilha) {
         this.codExpedicao = codExpedicao;
         this.qtdeParticipante = qtdeParticipante;
         this.dataExpedição = dataExpedição;
         this.nomeGuia = nomeGuia;
         this.situacao = situacao;
+        this.trilha = nomeTrilha;
     }
 
     public int getCodExpedicao() {
@@ -104,8 +114,15 @@ public class Expedição {
     }
     
     public String retornarInfo(){
+        String sit;
+        if (situacao) {
+            sit = "Confirmada";
+        }else {
+            sit = "Cancelada";
+        }
+        
         return "Expedição: n° " + codExpedicao + " - " + dataExpedição
-                + "\nGuia: " + nomeGuia + " | Participantes: " + qtdeParticipante + "Situação: " + situacao
+                + "\nGuia: " + nomeGuia + " | Participantes: " + qtdeParticipante + " Situação: " + sit
                 + "\nTrilha: " + trilha.getNomeTrilha() + " | Dificuldade: " + trilha.getNivelDificuldade() + " | Taxa: R$ " + trilha.getTaxaParticipante()
                 + "\nValor total: R$ " + calcularTotal();
     }
