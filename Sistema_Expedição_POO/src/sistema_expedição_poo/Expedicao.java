@@ -19,15 +19,6 @@ public class Expedicao {
         this.trilha = trilha;
     }
     
-    
-    public Expedicao(int codExpedicao, int qtdeParticipante, String dateExpedição, String nomeGuia, boolean situacao, Trilha nomeTrilha) {
-        this.codExpedicao = codExpedicao;
-        this.qtdeParticipante = qtdeParticipante;
-        this.dataExpedição = dataExpedição;
-        this.nomeGuia = nomeGuia;
-        this.situacao = situacao;
-        this.trilha = nomeTrilha;
-    }
 
     public int getCodExpedicao() {
         return codExpedicao;
@@ -69,20 +60,17 @@ public class Expedicao {
         this.situacao = situacao;
     }
     
-    public String verificarSituacao() {
-        String situ;
+    public boolean verificarSituacao() {
         if (situacao) {
-            situ = "Confirmada";
-        }
-        else {
-            situ = "Cancelada";
+            return true;
         }
         
-        return situ;
+        return false;
+        
     }
     
     
-    public String cancelarExpedicao() {
+    public String cancelarExpedicao(int codigo) {
         if (situacao) {
             situacao = false;
         }
@@ -93,7 +81,7 @@ public class Expedicao {
         return "\nExpedição cancelada";
     }
     
-    public String confirmarExpedicao() {
+    public String confirmarExpedicao(int codigo) {
         if (!situacao) {
             situacao = true;
         }

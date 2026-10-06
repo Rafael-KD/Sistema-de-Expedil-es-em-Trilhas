@@ -3,29 +3,12 @@ package sistema_expedição_poo;
 import java.util.ArrayList;
 
 public class FormTrilha extends javax.swing.JFrame {
-    public static ArrayList<Trilha> listaTrilhas = new ArrayList();
     
-    public Trilha buscarTrilha(int codigo) {
-        for (Trilha trilha : listaTrilhas) {
-            if (trilha.getCodTrilha() == codigo) {
-                return trilha;
-            }
-        }
-        
-        return null;
-    }
            
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormTrilha.class.getName());
 
     public FormTrilha() {
         initComponents();
-        
-        listaTrilhas.add(new Trilha(1, 2, 5, "Trilha da Cachoeira", 20.00));
-        listaTrilhas.add(new Trilha(2, 4, 12, "Trilha da Montanha", 35.00));
-        listaTrilhas.add(new Trilha(3, 1, 3, "Trilha do Lago", 10.00));
-        listaTrilhas.add(new Trilha(4, 3, 8, "Trilha da Mata", 25.00));
-        
-       
         
     }
 

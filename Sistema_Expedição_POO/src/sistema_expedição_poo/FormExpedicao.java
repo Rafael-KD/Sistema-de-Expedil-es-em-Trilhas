@@ -3,15 +3,27 @@ package sistema_expedição_poo;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
+
 public class FormExpedicao extends javax.swing.JFrame {
     ArrayList<Expedicao> listaExpedicoes = new ArrayList();    
-    ArrayList<Trilha> listaTrilhas = FormTrilha.listaTrilhas;
+    ArrayList<Trilha> listaTrilhas = new ArrayList();
                  
     Expedicao expe;
     public Expedicao buscarExpedicao(int codigo) {
         for (Expedicao expe : listaExpedicoes) {
             if (expe.getCodExpedicao() == codigo) {
                 return expe;
+            }
+        }
+        
+        return null;
+    }
+    
+    
+    public Trilha buscarTrilha(int codigo) {
+        for (Trilha trilha : listaTrilhas) {
+            if (trilha.getCodTrilha() == codigo) {
+                return trilha;
             }
         }
         
@@ -41,7 +53,7 @@ public class FormExpedicao extends javax.swing.JFrame {
         btnCadastrar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        btnGerarRelatorio = new javax.swing.JButton();
+        btnConfirmadas = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         taSaida = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
@@ -56,6 +68,8 @@ public class FormExpedicao extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         tfQtdParticipantes = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        btnExpedicoes = new javax.swing.JButton();
+        btnTotalArrecadado = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
@@ -70,7 +84,8 @@ public class FormExpedicao extends javax.swing.JFrame {
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(this::btnCancelarActionPerformed);
 
-        btnGerarRelatorio.setText("Gerar relatório");
+        btnConfirmadas.setText("Confirmadas");
+        btnConfirmadas.addActionListener(this::btnConfirmadasActionPerformed);
 
         taSaida.setColumns(20);
         taSaida.setRows(5);
@@ -89,6 +104,12 @@ public class FormExpedicao extends javax.swing.JFrame {
         jLabel6.setText("Nome Guia");
 
         jLabel7.setText("Quantidade Participantes");
+
+        btnExpedicoes.setText("Expedições");
+        btnExpedicoes.addActionListener(this::btnExpedicoesActionPerformed);
+
+        btnTotalArrecadado.setText("Total Arrecadado");
+        btnTotalArrecadado.addActionListener(this::btnTotalArrecadadoActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,7 +136,6 @@ public class FormExpedicao extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(cbTrilhas, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tfCodExpedicaoBuscar, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnGerarRelatorio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -140,7 +160,13 @@ public class FormExpedicao extends javax.swing.JFrame {
                                         .addComponent(tfQtdParticipantes, javax.swing.GroupLayout.Alignment.TRAILING))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(jLabel6)
-                                        .addGap(126, 126, 126)))))
+                                        .addGap(126, 126, 126))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(btnExpedicoes, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(45, 45, 45)
+                                .addComponent(btnConfirmadas, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                                .addComponent(btnTotalArrecadado, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(25, 25, 25))))
         );
         layout.setVerticalGroup(
@@ -178,13 +204,18 @@ public class FormExpedicao extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfCodExpedicaoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnGerarRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnTotalArrecadado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnConfirmadas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnExpedicoes, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         pack();
@@ -220,7 +251,7 @@ public class FormExpedicao extends javax.swing.JFrame {
 
             Expedicao expe = new Expedicao(codExpedicao, qtdeParticipante, data, guia, tri);
             listaExpedicoes.add(expe);
-            expe.confirmarExpedicao();
+            expe.confirmarExpedicao(codExpedicao);
             
             taSaida.setText("Expedição Confirmada");
                  
@@ -235,7 +266,12 @@ public class FormExpedicao extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Insira um código");       
         }
         
-        taSaida.append(buscarExpedicao(codInserido).retornarInfo());
+        Expedicao expResult = buscarExpedicao(codInserido);
+        if (expResult != null) {
+            taSaida.setText(expResult.retornarInfo());
+        }else {
+            taSaida.setText("Expedição não encontrada");
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -243,12 +279,55 @@ public class FormExpedicao extends javax.swing.JFrame {
         taSaida.setText("");
         
         if (tfCodExpedicao.equals(" ")) {
-            JOptionPane.showMessageDialog(null, "Insira um código");       
+            JOptionPane.showMessageDialog(null, "Insira um código");    
+            return;
         }
         
-        buscarExpedicao(codInserido).cancelarExpedicao();
+        Expedicao expResult = buscarExpedicao(codInserido);
+        if (expResult != null) {
+            expResult.cancelarExpedicao(codInserido);
+            taSaida.setText(expResult.retornarInfo());            
+        }else {
+            taSaida.setText("Expedição não encontrada");
+            return;
+        }
+                
         taSaida.setText("Expedição Cancelada");
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnConfirmadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmadasActionPerformed
+        taSaida.setText("");
+
+        for (Expedicao expe : listaExpedicoes) {
+            if (expe.verificarSituacao()) {
+                taSaida.append(expe.retornarInfo() + "\n\n");
+            }
+        }
+        
+    }//GEN-LAST:event_btnConfirmadasActionPerformed
+
+    private void btnExpedicoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExpedicoesActionPerformed
+        taSaida.setText("");
+        
+        for (Expedicao expe : listaExpedicoes) {
+            taSaida.append(expe.retornarInfo() + "\n\n");
+        }
+    }//GEN-LAST:event_btnExpedicoesActionPerformed
+
+    private void btnTotalArrecadadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTotalArrecadadoActionPerformed
+        taSaida.setText("");
+
+        int totalParticipantes = 0;
+        double valorTotal = 0;
+
+        for (Expedicao expe : listaExpedicoes) {
+            totalParticipantes += expe.getQtdeParticipante();
+            valorTotal += expe.calcularTotal();
+        }
+
+        taSaida.append("Total de participantes: " + totalParticipantes + "\n");
+        taSaida.append("Valor total: R$ " + valorTotal);
+    }//GEN-LAST:event_btnTotalArrecadadoActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -276,7 +355,9 @@ public class FormExpedicao extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnGerarRelatorio;
+    private javax.swing.JButton btnConfirmadas;
+    private javax.swing.JButton btnExpedicoes;
+    private javax.swing.JButton btnTotalArrecadado;
     private javax.swing.JComboBox<Trilha> cbTrilhas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
